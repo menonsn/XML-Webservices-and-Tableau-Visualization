@@ -24,7 +24,7 @@ namespace CAD_drug_report.Pages
             using (WebClient webClient = new WebClient())
             {
                //Drug Reports data
-               string drugData = webClient.DownloadString("https://data.cincinnati-oh.gov/resource/m3rc-s9gd.json");
+               string drugData = GetEndpoint("https://data.cincinnati-oh.gov/resource/m3rc-s9gd.json");
 
                List<QuickTypeDrug.Drug> alldrug = QuickTypeDrug.Drug.FromJson(drugData);
 
@@ -36,7 +36,7 @@ namespace CAD_drug_report.Pages
                 }
 
                //CAD data
-               string jsonData = webClient.DownloadString("https://data.cincinnati-oh.gov/resource/qiik-bpks.json");
+               string jsonData = GetEndpoint("https://data.cincinnati-oh.gov/resource/qiik-bpks.json");
               
                List<QuickTypeCad.Cad> allcad = QuickTypeCad.Cad.FromJson(jsonData);
 
@@ -57,6 +57,17 @@ namespace CAD_drug_report.Pages
                 ViewData["allcad"] = drugReport;
 
             }//end of using()
+
+        }
+        public string GetEndpoint(string endpoint)
+        {
+            string downloadedData = "";
+            using (WebClient webClient = new WebClient())
+            {
+                downloadedData = webClient.DownloadString(endpoint);
+                
+            }
+            return downloadedData;
         }
     }
 }
