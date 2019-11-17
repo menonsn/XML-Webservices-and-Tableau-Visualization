@@ -27,6 +27,7 @@ namespace CAD_drug_report.Pages
                string drugData = GetEndpoint("https://data.cincinnati-oh.gov/resource/m3rc-s9gd.json");
 
                List<QuickTypeDrug.Drug> alldrug = QuickTypeDrug.Drug.FromJson(drugData);
+                //QuickTypeDrug.Drug[] drugs = QuickTypeDrug.Drug.FromJson(drugData);
 
                IDictionary<string, QuickTypeDrug.Drug> drugDictionary = new Dictionary<string, QuickTypeDrug.Drug>();
                 
