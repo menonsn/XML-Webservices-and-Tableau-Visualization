@@ -49,7 +49,7 @@ namespace QuickTypeCad
         public long? Priority { get; set; }
 
         [JsonProperty("priority_color", NullValueHandling = NullValueHandling.Ignore)]
-        public PriorityColor? PriorityColor { get; set; }
+        public PriorityColor? Priority { get; set; }
 
         [JsonProperty("geo_status", NullValueHandling = NullValueHandling.Ignore)]
         public string GeoStatus { get; set; }

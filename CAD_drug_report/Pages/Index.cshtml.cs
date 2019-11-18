@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
 
 namespace CAD_drug_report.Pages
 {
@@ -41,6 +43,35 @@ namespace CAD_drug_report.Pages
                List<QuickTypeCad.Cad> allcad = QuickTypeCad.Cad.FromJson(jsonData);
 
                IList<QuickTypeCad.Cad> drugReport = new List<QuickTypeCad.Cad>();
+                IList<QuickTypeCad.Cad> AddressX = new List<QuickTypeCad.Cad>();
+
+
+                // get the raw JSON data.
+                jsonData = ("https://data.cincinnati-oh.gov/resource/qiik-bpks.json");
+
+               
+                string schemaString = System.IO.File.ReadAllText("https://data.cincinnati-oh.gov/resource/qiik-bpks.json");
+                
+                JSchema schema = JSchema.Parse(schemaString);
+                
+                JObject jsonObject = JObject.Parse(jsonData);
+                
+                bool valid = jsonObject.IsValid(schema);
+
+                foreach (QuickTypeCad.Cad cad in allcad)
+                {
+                  
+                    Console.WriteLine(cad);
+
+                 
+                    if (drugDictionary.ContainsKey(cad.AddressX))
+                    {
+                       
+                        AddressX.Add(cad);
+                    }
+                }
+
+
 
 
                 foreach (QuickTypeCad.Cad cad in allcad)
