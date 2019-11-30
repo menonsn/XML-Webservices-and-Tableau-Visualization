@@ -20,55 +20,56 @@ namespace CAD_drug_report.Pages
 
         public void OnGet()
         {
-            //Web Client gives us access to data on the internet
-            using (WebClient webClient = new WebClient())
-            {
-               //Drug Reports data
-               string drugData = GetEndpoint("https://data.cincinnati-oh.gov/resource/m3rc-s9gd.json");
 
-               List<QuickTypeDrug.Drug> alldrug = QuickTypeDrug.Drug.FromJson(drugData);
-                //QuickTypeDrug.Drug[] drugs = QuickTypeDrug.Drug.FromJson(drugData);
+            //Drug Reports data
+            string drugData = GetData("https://data.cincinnati-oh.gov/resource/m3rc-s9gd.json"); 
+            List<QuickTypeDrug.Drug> alldrug = QuickTypeDrug.Drug.FromJson(drugData);
 
-               IDictionary<string, QuickTypeDrug.Drug> drugDictionary = new Dictionary<string, QuickTypeDrug.Drug>();
+
+            IDictionary<string, QuickTypeDrug.Drug> drugDictionary = new Dictionary<string, QuickTypeDrug.Drug>();
                 
-                foreach(QuickTypeDrug.Drug drug in alldrug)
-                {
-                    drugDictionary.Add(drug.EventNumber, drug);
-                }
+            foreach(QuickTypeDrug.Drug drug in alldrug)
+            {
+               drugDictionary.Add(drug.EventNumber, drug);
+            }
 
-               //CAD data
-               string jsonData = GetEndpoint("https://data.cincinnati-oh.gov/resource/qiik-bpks.json");
+
+            //CAD data
+            string jsonData = GetData("https://data.cincinnati-oh.gov/resource/qiik-bpks.json");
+
               
-               List<QuickTypeCad.Cad> allcad = QuickTypeCad.Cad.FromJson(jsonData);
+            List<QuickTypeCad.Cad> allcad = QuickTypeCad.Cad.FromJson(jsonData);
 
-               IList<QuickTypeCad.Cad> drugReport = new List<QuickTypeCad.Cad>();
+            IList<QuickTypeCad.Cad> drugReport = new List<QuickTypeCad.Cad>();
 
 
-                foreach (QuickTypeCad.Cad cad in allcad)
-                {
-                    Console.WriteLine(cad);
+            foreach (QuickTypeCad.Cad cad in allcad)
+            {
+               Console.WriteLine(cad);
 
-                    if(drugDictionary.ContainsKey(cad.EventNumber))
-                    {
-                        drugReport.Add(cad);
-                    }
+               if(drugDictionary.ContainsKey(cad.EventNumber))
+               {
+                  drugReport.Add(cad);
+               }
 
-                }//end of foreach()
+            }//end of foreach()
 
-                ViewData["allcad"] = drugReport;
-
-            }//end of using()
+            ViewData["allcad"] = drugReport;
 
         }
-        public string GetEndpoint(string endpoint)
+
+        public string GetData(string endpoint)
+
         {
             string downloadedData = "";
             using (WebClient webClient = new WebClient())
             {
                 downloadedData = webClient.DownloadString(endpoint);
-                
+
             }
             return downloadedData;
         }
+
     }
+
 }
