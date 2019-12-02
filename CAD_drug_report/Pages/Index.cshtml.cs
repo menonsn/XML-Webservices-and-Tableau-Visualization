@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using QuickTypeDrug;
+using QuickTypeCad;
 
 namespace CAD_drug_report.Pages
 {
@@ -21,55 +23,65 @@ namespace CAD_drug_report.Pages
         public void OnGet()
         {
 
-            //Drug Reports data
-            string drugData = GetData("https://data.cincinnati-oh.gov/resource/m3rc-s9gd.json"); 
-            List<QuickTypeDrug.Drug> alldrug = QuickTypeDrug.Drug.FromJson(drugData);
-
-
-            IDictionary<string, QuickTypeDrug.Drug> drugDictionary = new Dictionary<string, QuickTypeDrug.Drug>();
-                
-            foreach(QuickTypeDrug.Drug drug in alldrug)
-            {
-               drugDictionary.Add(drug.EventNumber, drug);
-            }
-
-
-            //CAD data
-            string jsonData = GetData("https://data.cincinnati-oh.gov/resource/qiik-bpks.json");
-
-              
-            List<QuickTypeCad.Cad> allcad = QuickTypeCad.Cad.FromJson(jsonData);
-
-            IList<QuickTypeCad.Cad> drugReport = new List<QuickTypeCad.Cad>();
-
-
-            foreach (QuickTypeCad.Cad cad in allcad)
-            {
-               Console.WriteLine(cad);
-
-               if(drugDictionary.ContainsKey(cad.EventNumber))
-               {
-                  drugReport.Add(cad);
-               }
-
-            }//end of foreach()
-
-            ViewData["allcad"] = drugReport;
+            SearchCompleted = false;
 
         }
 
-        public string GetData(string endpoint)
+        [BindProperty]
+        public string Search { get; set; }
 
+        public bool SearchCompleted { get; set; }
+
+        List<Drug> DrugReport = new List<Drug>();
+        Cad newCAD = new Cad();
+        public void OnPost()
         {
-            string downloadedData = "";
+
+            string drugData = GetData("https://data.cincinnati-oh.gov/resource/m3rc-s9gd.json");
+            Drug[] alldrug = Drug.FromJson(drugData).ToArray();
+            string jsonData = GetData("https://data.cincinnati-oh.gov/resource/qiik-bpks.json");
+            Cad[] allCAD = Cad.FromJson(jsonData).ToArray();
+            foreach (Drug drug in alldrug)
+            {
+                if (drug.SnaNeighborhood != null && Search != null)
+                {
+                    if (drug.SnaNeighborhood.ToLower() == Search.ToLower())
+                    {
+                        DrugReport.Add(drug);
+                    }
+                }
+                else
+                {
+                    DrugReport.Add(drug);
+                }
+            }
+            foreach (Cad caddata in allCAD)
+            {
+                if (caddata.SnaNeighborhood != null && Search != null)
+                {
+                    if (caddata.SnaNeighborhood.ToLower() == Search.ToLower())
+                    {
+                        newCAD = caddata;
+                    }
+                }
+                else
+                {
+                    newCAD = caddata;
+                }
+            }
+            ViewData["drugReport"] = DrugReport;
+            ViewData["CAD"] = newCAD;
+            SearchCompleted = true;
+        }
+        public string GetData(string endpoint)
+        {
+            string downloadedJson;
             using (WebClient webClient = new WebClient())
             {
-                downloadedData = webClient.DownloadString(endpoint);
-
+                downloadedJson = webClient.DownloadString(endpoint); ;
             }
-            return downloadedData;
+            return downloadedJson;
         }
-
     }
 
 }
