@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using QuickTypeDrug;
 using QuickTypeCad;
 
+
 namespace CAD_drug_report.Pages
 {
     public class IndexModel : PageModel
@@ -72,6 +73,12 @@ namespace CAD_drug_report.Pages
             ViewData["drugReport"] = DrugReport;
             ViewData["CAD"] = newCAD;
             SearchCompleted = true;
+
+            //string neighborhoodData = GetData("https://data.cincinnati-oh.gov/resource/h8mv-4fsc.json");
+            //List<NeighborhoodData> neighborhoods = NeighborhoodData.FromJson(neighborhoodData);
+            //ViewData["Houses"] = neighborhoods;
+
+
         }
         public string GetData(string endpoint)
         {

@@ -4,6 +4,7 @@
     ViewData["Title"] = "Home page";
     List<QuickTypeDrug.Drug> allDrug = (List<QuickTypeDrug.Drug>)ViewData["drugReport"];
     QuickTypeCad.Cad allCad = (QuickTypeCad.Cad)ViewData["CAD"];
+    //List<QuicktypeNeighborhood.NeighborhoodData> allNeighborhood  = (List<QuicktypeNeighborhood.NeighborhoodData>)ViewData["Neighborhoods"];
 }
 
 <head>
@@ -66,6 +67,7 @@
                                 <th>Neighbourhood</th>
                                 <th>Incident Type</th>
                                 <th>Priority</th>
+                                @*<th>Neighbourhood Plot</th>*@
 
                             </tr>
                         </thead>
@@ -85,6 +87,7 @@
                                         <td>@drug.SnaNeighborhood</td>
                                         <td>@drug.IncidentTypeId</td>
                                         <td>@drug.PriorityColor</td>
+                                        @*<td>@.</td>*@
 
                                     </tr>
                                 }
