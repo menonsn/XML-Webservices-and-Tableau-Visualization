@@ -1,0 +1,63 @@
+﻿@page
+@model BreweryModel
+@{
+    ViewData["Title"] = "Brwery Data";
+    //allBrewery = (Brewery.BreweryJson)ViewData["allBrewery"];
+    List<Brewery.BreweryJson> allBrewery = (List<Brewery.BreweryJson>)ViewData["allBrewery"];
+
+}
+
+<head>
+    <title>Brewery Data</title>
+    <link rel="stylesheet" href="~/css/StyleSheet.css" type="text/css" />
+
+</head>
+
+<div class="text-center">
+    <h2 class="display-4 text-white w3-red">List of Breweries</h2>
+    <table class="table table-border table-dark table-striped table-hover auto-index">
+        <tr>
+            <th>
+                Brewery
+            </th>
+            <th>
+                Distance
+            </th>
+            <th>
+                Display Phone
+            </th>
+            <th>
+                Phone
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Location
+            </th>
+            <th>
+                Rating
+            </th>
+        </tr>
+        @{
+
+
+
+            @foreach (Brewery.BreweryJson brewery in allBrewery)
+
+            {
+                <tr>
+                    <td>@brewery.Name</td>
+                    <td>@brewery.Distance</td>
+                    <td>@brewery.DisplayPhone</td>
+                    <td>@brewery.Phone</td>
+                    <td>@brewery.Price</td>
+                    <td>@brewery.Location.Address1 @brewery.Location.Address2 @brewery.Location.Address3</td>
+                    <td>@brewery.Rating</td>
+
+                </tr>
+            }
+        }
+    </table>
+</div>
+

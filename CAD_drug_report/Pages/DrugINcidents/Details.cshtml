@@ -1,0 +1,55 @@
+﻿@page
+@model CAD_drug_report.Pages.DrugINcidents.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>ReportDrugIncidents</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReportDrugIncidents.Agency)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReportDrugIncidents.Agency)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReportDrugIncidents.IncidentTypeID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReportDrugIncidents.IncidentTypeID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReportDrugIncidents.Neighborhood)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReportDrugIncidents.Neighborhood)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReportDrugIncidents.PriorityColor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReportDrugIncidents.PriorityColor)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReportDrugIncidents.Latitude)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReportDrugIncidents.Latitude)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReportDrugIncidents.Longitude)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReportDrugIncidents.Longitude)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.ReportDrugIncidents.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
