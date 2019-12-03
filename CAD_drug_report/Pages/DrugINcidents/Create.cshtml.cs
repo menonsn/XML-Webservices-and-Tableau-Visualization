@@ -6,25 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using CAD_drug_report.Models;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
 
 namespace CAD_drug_report.Pages.DrugINcidents
 {
     public class CreateModel : PageModel
     {
-        //private readonly CAD_drug_report.Models.CAD_drug_reportContext _context;
-        private readonly IHostingEnvironment _environment;
+        private readonly CAD_drug_report.Models.CAD_drug_reportContext _context;
 
-        //public CreateModel(CAD_drug_report.Models.CAD_drug_reportContext context)
-        //{
-        //    _context = context;
-        //}
-
-        public CreateModel(IHostingEnvironment environment)
+        public CreateModel(CAD_drug_report.Models.CAD_drug_reportContext context)
         {
-            _environment = environment;
+            _context = context;
         }
+
         public IActionResult OnGet()
         {
             return Page();
@@ -42,14 +35,10 @@ namespace CAD_drug_report.Pages.DrugINcidents
                 return Page();
             }
 
-           
+            _context.ReportDrugIncidents.Add(ReportDrugIncidents);
+            await _context.SaveChangesAsync();
 
-            string addition = ReportDrugIncidents.Agency + "," + ReportDrugIncidents.Neighborhood+ "," + ReportDrugIncidents.IncidentTypeID + ","
-          + ReportDrugIncidents.Latitude + "," + ReportDrugIncidents.Longitude + "," + ReportDrugIncidents.PriorityColor;
-            string path = Path.Combine(_environment.ContentRootPath, "ReportDrugIncidents.txt");
-                       
-            System.IO.File.AppendAllText(path, addition + Environment.NewLine);
-             return RedirectToPage("./Index");
+            return RedirectToPage("./Index");
         }
     }
 }
