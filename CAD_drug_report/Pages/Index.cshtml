@@ -1,6 +1,4 @@
-﻿
-
-@page
+﻿@page
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -10,129 +8,132 @@
 
 <head>
     <title>Crime Patrol</title>
-    <link rel="stylesheet" href="~/css/StyleSheet.css" type="text/css" />
+    @*<link rel="stylesheet" href="~/css/StyleSheet.css" type="text/css" />*@
 </head>
+<body>
+    <h1>Enter Neighbourhood</h1>
 
-<h1>Enter Neighbourhood</h1>
+    <form action="" method="POST">
+        <div class="form-group">
+            <label class="control-label" for="search"><strong></strong></label>
+            <input type="text" class="form-control" name="search" id="search" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Search" class="btn btn-info" />
+        </div>
+    </form>
 
-<form action="" method="POST">
-    <div class="form-group">
-        <label class="control-label" for="search"><strong></strong></label>
-        <input type="text" class="form-control" name="search" id="search" />
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Search" class="btn btn-danger" />
-    </div>
-</form>
+    @if (Model.SearchCompleted)
 
-@if (Model.SearchCompleted)
-
-{
-    <div class="text-center">
-        <h2 class="display-4">Crime Report</h2>
-        @*<h4>@allCities.Name, @allCities.Country, @allCities.Subcountry</h4>*@
-        <br />
-        <div class="row">
-            <div class="col-2">
-                @if (allDrug.Count() > 0)
-                {
-                    var type_count = allDrug.GroupBy(t => t.IncidentTypeId)
-                           .Select(t => new
-                           {
-                               Type = t.Key,
-                               Count = t.Count()
-                           }).ToList();
-                    foreach (var a in type_count)
+    {
+        <div class="text-center">
+            <h2 class="display-4">Crime Report</h2>
+            <br />
+            <div class="row">
+                <div class="col-2">
+                    @if (allDrug.Count() > 0)
                     {
-                        <div class="w3-row-padding w3-margin-bottom">
-                            <div class="w3-quarter">
-                                <div class="container w3-red w3-padding-16">
-                                    <h3>@a.Count</h3>
-                                    <div class="w3-clear"></div>
-                                    <h6>@a.Type</h6>
+                        var type_count = allDrug.GroupBy(t => t.IncidentTypeId)
+                               .Select(t => new
+                               {
+                                   Type = t.Key,
+                                   Count = t.Count()
+                               }).ToList();
+                        foreach (var a in type_count)
+                        {
+                            <div class="w3-row-padding w3-margin-bottom">
+                                <div class="w3-quarter">
+                                    <div class="container w3-clear w3-padding-16">
+                                        <h3>@a.Count</h3>
+                                        <div class="w3-red"></div>
+                                        <h6>@a.Type</h6>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     }
-                }
-            </div>
-            <div class="col-10">
-                <table class="table table-border table-dark table-striped table-hover auto-index">
-                    @{
-                        int count = 0;
-                    }
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>S.No.</th>
-                            <th>District</th>
-                            <th>Agency</th>
-                            <th>Neighbourhood</th>
-                            <th>Incident Type</th>
-                            <th>Priority</th>
+                </div>
+                <div class="col-10">
+                    <table class="table table-border table-dark table-striped table-hover auto-index">
+                        @{
+                            int count = 0;
+                        }
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>S.No.</th>
+                                <th>District</th>
+                                <th>Agency</th>
+                                <th>Neighbourhood</th>
+                                <th>Incident Type</th>
+                                <th>Priority</th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (allDrug.Count > 0)
-                        {
-
-                            @foreach (QuickTypeDrug.Drug drug in allDrug)
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (allDrug.Count > 0)
                             {
-                                <tr>
-                                    <td>
-                                        @{ count++; }
-                                        @count
-                                    </td>
-                                    <td>@allCad.District</td>
-                                    <td>@allCad.Agency</td>
-                                    <td>@drug.SnaNeighborhood</td>
-                                    <td>@drug.IncidentTypeId</td>
-                                    <td>@drug.PriorityColor</td>
 
+                                @foreach (QuickTypeDrug.Drug drug in allDrug)
+                                {
+                                    <tr>
+                                        <td>
+                                            @{ count++; }
+                                            @count
+                                        </td>
+                                        <td>@allCad.District</td>
+                                        <td>@allCad.Agency</td>
+                                        <td>@drug.SnaNeighborhood</td>
+                                        <td>@drug.IncidentTypeId</td>
+                                        <td>@drug.PriorityColor</td>
+
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr class="danger">
+                                    <td colspan="4" class="text-center">
+                                        No results found for term "@Model.Search"
+                                    </td>
                                 </tr>
                             }
-                        }
-                        else
-                        {
-                            <tr class="danger">
-                                <td colspan="4" class="text-center">
-                                    No results found for term "@Model.Search"
-                                </td>
-                            </tr>
-                        }
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+                <br />
             </div>
-            <br />
         </div>
-    </div>
-}
+    }
 
-<div class='tableauPlaceholder' id='viz1575267976836' style='position: relative'>
-    <noscript>
-        <a href='#'>
-            <img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Cr&#47;CrimeData_15752679414360&#47;Sheet1&#47;1_rss.png' style='border: none' />
-        </a>
-    </noscript>
-    <object class='tableauViz' style='display:none;'>
-        <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-        <param name='embed_code_version' value='3' />
-        <param name='site_root' value='' />
-        <param name='name' value='CrimeData_15752679414360&#47;Sheet1' />
-        <param name='tabs' value='no' />
-        <param name='toolbar' value='yes' />
-        <param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Cr&#47;CrimeData_15752679414360&#47;Sheet1&#47;1.png' />
-        <param name='animate_transition' value='yes' />
-        <param name='display_static_image' value='yes' />
-        <param name='display_spinner' value='yes' />
-        <param name='display_overlay' value='yes' />
-        <param name='display_count' value='yes' />
-    </object>
-</div>
-<script type='text/javascript'>
-var divElement = document.getElementById('viz1575267976836');
- var vizElement = divElement.getElementsByTagName('object')[0];
- vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');
-scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
+    <div class='tableauPlaceholder' id='viz1575267976836' style='position: relative'>
+        <noscript>
+            <a href='#'>
+                <img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Cr&#47;CrimeData_15752679414360&#47;Sheet1&#47;1_rss.png' style='border: none' />
+            </a>
+        </noscript>
+        <object class='tableauViz' style='display:none;'>
+            <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+            <param name='embed_code_version' value='3' />
+            @*<param name='site_root' value='' />*@
+            <param name='name' value='CrimeData_15752679414360&#47;Sheet1' />
+            <param name='tabs' value='no' />
+            <param name='toolbar' value='yes' />
+            <param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Cr&#47;CrimeData_15752679414360&#47;Sheet1&#47;1.png' />
+            <param name='animate_transition' value='yes' />
+            <param name='display_static_image' value='yes' />
+            <param name='display_spinner' value='yes' />
+            <param name='display_overlay' value='yes' />
+            <param name='display_count' value='yes' />
+        </object>
+    </div>
+
+    <script type='text/javascript'>
+        var divElement = document.getElementById('viz1575267976836');
+        var vizElement = divElement.getElementsByTagName('object')[0];
+        vizElement.style.width = '100%'; vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px';
+        var scriptElement = document.createElement('script');
+        scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+        vizElement.parentNode.insertBefore(scriptElement, vizElement);
+    </script>
+</body>
