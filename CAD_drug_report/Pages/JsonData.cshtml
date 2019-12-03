@@ -1,0 +1,58 @@
+﻿@page
+@model JsonDataModel
+@{
+    ViewData["Title"] = "Home page";
+    List<QuickTypeCad.Cad> allcad = (List<QuickTypeCad.Cad>)ViewData["allcad"];
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Reported Drug Activity in Cincinnati</h1>
+    <p>Learn more in detail about drug activities taking place in Cincinnati</p>
+
+    <table class="table table-striped table-hover table-danger border-bottom overflow-auto table-responsive">
+
+        <tr>
+            <th>
+                <a href="#" data-toggle="tooltip" title="Each event has 15 digit alphanumeric id">Event Number</a>
+            </th>
+            <th>
+                <a href="#" data-toggle="tooltip" title="It gives description about the incident">Incident ID</a>
+            </th>
+            <th>
+                <a href="#" data-toggle="tooltip" title="Communities affected due to incident">Community</a>
+            </th>
+            <th>
+                <a href="#" data-toggle="tooltip" title="Address where incident happended">Address</a>
+            </th>
+            <th>
+                <a href="#" data-toggle="tooltip">Reported Time</a>
+            </th>
+            <th>
+                <a href="#" data-toggle="tooltip" title="Yellow suggests medium priority">Priority</a>
+            </th>
+            <th>
+                <a href="#" data-toggle="tooltip">Latitude</a>
+            </th>
+            <th>
+                <a href="#" data-toggle="tooltip">Longitude</a>
+            </th>
+        </tr>
+        @{
+            @foreach (QuickTypeCad.Cad cad in allcad)
+            {
+                <tr>
+                    <td>@cad.EventNumber</td>
+                    <td>@cad.IncidentTypeId</td>
+                    <td>@cad.SnaNeighborhood</td>
+                    <td>@cad.AddressX</td>
+                    <td>@cad.CreateTimeIncident</td>
+                    <td>@cad.PriorityColor</td>
+                    <td>@cad.LatitudeX</td>
+                    <td>@cad.LongitudeX</td>
+
+                </tr>
+            }
+        }
+    </table>
+</div>
