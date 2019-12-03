@@ -1,3 +1,11 @@
+body {
+    background-image: url("https://media.newyorker.com/photos/5cd0602992eb652e91bb6799/master/w_727,c_limit/Larson-MayPodcasts.jpg");
+    background-size: cover;
+    background-color: aquamarine;
+    font-family: 'Times New Roman', Times, serif;
+    color: darkgoldenrod;
+}
+
 .w3-row-padding {
 	padding: 10px 8px
 }
@@ -12,6 +20,8 @@ a.navbar-brand {
 	margin-bottom: 16px !important
 }
 
+
+
 .w3-quarter {
 	float: left;
 	width: 100%;
@@ -24,8 +34,8 @@ a.navbar-brand {
 }
 
 .w3-padding-16 {
-	padding-top: 16px !important;
-	padding-bottom: 16px !important
+	padding-top: 20px !important;
+	padding-bottom: 20px !important
 }
 
 .table-border {
@@ -33,7 +43,7 @@ a.navbar-brand {
 }
 
 	.table-border th, td {
-		border: 1px solid black;
+		border: 2px solid black;
 	}
 
 
@@ -44,21 +54,19 @@ a.navbar-brand {
 	height: 0;
 }
 
-	.map-container-5 iframe {
-		left: 0;
-		top: 0;
-		height: 100%;
-		width: 100%;
-		position: absolute;
-	}
-
+    .map-container-5 iframe {
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+    }
 
 .footer {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
 	white-space: nowrap;
-	/* Set the fixed height of the footer here */
 	height: 60px;
-	line-height: 60px; /* Vertically center the text there */
+	line-height: 60px; 
 }
