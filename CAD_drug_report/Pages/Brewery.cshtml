@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Brwery Data";
     //allBrewery = (Brewery.BreweryJson)ViewData["allBrewery"];
-    List<Brewery.BreweryJson> allBrewery = (List<Brewery.BreweryJson>)ViewData["allBrewery"];
+    List<Brewery.BreweryData> allBrewery = (List<Brewery.BreweryData>)ViewData["Brewery"];
 
 }
 
@@ -14,17 +14,11 @@
 </head>
 
 <div class="text-center">
-    <h2 class="display-4 text-white w3-red">List of Breweries</h2>
-    <table class="table table-border table-dark table-striped table-hover auto-index">
+    <h2 class="display-4 text-white">Breweries</h2>
+    <table class="table table-info">
         <tr>
             <th>
                 Brewery
-            </th>
-            <th>
-                Distance
-            </th>
-            <th>
-                Display Phone
             </th>
             <th>
                 Phone
@@ -43,13 +37,11 @@
 
 
 
-            @foreach (Brewery.BreweryJson brewery in allBrewery)
+            @foreach (Brewery.BreweryData brewery in allBrewery)
 
             {
                 <tr>
                     <td>@brewery.Name</td>
-                    <td>@brewery.Distance</td>
-                    <td>@brewery.DisplayPhone</td>
                     <td>@brewery.Phone</td>
                     <td>@brewery.Price</td>
                     <td>@brewery.Location.Address1 @brewery.Location.Address2 @brewery.Location.Address3</td>

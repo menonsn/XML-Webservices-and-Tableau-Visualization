@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CAD_drug_report.Migrations
 {
     [DbContext(typeof(CAD_drug_reportContext))]
-    [Migration("20191203054515_initial")]
-    partial class initial
+    [Migration("20191204025834_primary")]
+    partial class primary
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

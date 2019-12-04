@@ -4,7 +4,7 @@
 //
 //    using Brewery;
 //
-//    var breweryJson = BreweryJson.FromJson(jsonString);
+//    var BreweryData = BreweryData.FromJson(jsonString);
 
 namespace Brewery
 {
@@ -15,7 +15,7 @@ namespace Brewery
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
-    public partial class BreweryJson
+    public partial class BreweryData
     {
         [JsonProperty("reviews")]
         public Review[] Reviews { get; set; }
@@ -164,14 +164,14 @@ namespace Brewery
 
     public enum Price { Empty, Price, Purple };
 
-    public partial class BreweryJson
+    public partial class BreweryData
     {
-        public static BreweryJson[] FromJson(string json) => JsonConvert.DeserializeObject<BreweryJson[]>(json, Brewery.Converter.Settings);
+        public static BreweryData[] FromJson(string json) => JsonConvert.DeserializeObject<BreweryData[]>(json, Brewery.Converter.Settings);
     }
 
     public static class Serialize
     {
-        public static string ToJson(this BreweryJson[] self) => JsonConvert.SerializeObject(self, Brewery.Converter.Settings);
+        public static string ToJson(this BreweryData[] self) => JsonConvert.SerializeObject(self, Brewery.Converter.Settings);
     }
 
     internal static class Converter
