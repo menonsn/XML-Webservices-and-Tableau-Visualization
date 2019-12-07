@@ -21,7 +21,7 @@ namespace CAD_drug_report.Pages
         public JsonResult OnGet()
         {
 
-            //Drug Reports data
+            //Drug Reports JSON data download 
             string drugData = GetData("https://data.cincinnati-oh.gov/resource/m3rc-s9gd.json");
             List<QuickTypeDrug.Drug> alldrug = QuickTypeDrug.Drug.FromJson(drugData);
 
@@ -34,7 +34,7 @@ namespace CAD_drug_report.Pages
             }
 
 
-            //CAD data
+            //All police reported incidents JSON data download
             string jsonData = GetData("https://data.cincinnati-oh.gov/resource/qiik-bpks.json");
 
 
@@ -52,9 +52,12 @@ namespace CAD_drug_report.Pages
                     drugReport.Add(cad);
                 }
 
-            }//end of foreach()
+            }
 
+            
             ViewData["allcad"] = drugReport;
+
+            //Return the JSON format of data merged
             return new JsonResult(drugReport);
 
         }

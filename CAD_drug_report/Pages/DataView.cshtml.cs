@@ -52,7 +52,7 @@ namespace CAD_drug_report.Pages
                     drugReport.Add(cad);
                 }
 
-            }//end of foreach()
+            }
 
             ViewData["allcad"] = drugReport;
 

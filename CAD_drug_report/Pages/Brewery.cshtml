@@ -2,7 +2,6 @@
 @model BreweryModel
 @{
     ViewData["Title"] = "Brwery Data";
-    //allBrewery = (Brewery.BreweryJson)ViewData["allBrewery"];
     List<Brewery.BreweryData> allBrewery = (List<Brewery.BreweryData>)ViewData["Brewery"];
 
 }
@@ -34,8 +33,6 @@
             </th>
         </tr>
         @{
-
-
 
             @foreach (Brewery.BreweryData brewery in allBrewery)
 

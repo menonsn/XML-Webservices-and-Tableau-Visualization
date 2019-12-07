@@ -24,6 +24,7 @@ namespace CAD_drug_report.Pages
 
         BreweryData newBrewery = new BreweryData();
 
+        //Using Sidney Schaepers JSON dataset to display all Brewery Data in Cincinnati
         public void OnGet()
         {
 

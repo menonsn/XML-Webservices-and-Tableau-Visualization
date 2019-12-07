@@ -4,12 +4,10 @@
     ViewData["Title"] = "Home page";
     List<QuickTypeDrug.Drug> allDrug = (List<QuickTypeDrug.Drug>)ViewData["drugReport"];
     QuickTypeCad.Cad allCad = (QuickTypeCad.Cad)ViewData["CAD"];
-    //List<QuicktypeNeighborhood.NeighborhoodData> allNeighborhood  = (List<QuicktypeNeighborhood.NeighborhoodData>)ViewData["Neighborhoods"];
 }
 
 <head>
-    <title>Crime Patrol</title>
-    @*<link rel="stylesheet" href="~/css/StyleSheet.css" type="text/css" />*@
+    <title>Live Drug Reports in Cincinnati</title>
 </head>
 <body>
     <h1>Enter Neighbourhood</h1>
@@ -32,6 +30,7 @@
             <br />
             <div class="row">
                 <div class="col-2">
+                    @*Count all the different types of Drug incidents reported and group them*@
                     @if (allDrug.Count() > 0)
                     {
                         var type_count = allDrug.GroupBy(t => t.IncidentTypeId)
@@ -67,8 +66,6 @@
                                 <th>Neighbourhood</th>
                                 <th>Incident Type</th>
                                 <th>Priority</th>
-                                @*<th>Neighbourhood Plot</th>*@
-
                             </tr>
                         </thead>
                         <tbody>
@@ -87,8 +84,6 @@
                                         <td>@drug.SnaNeighborhood</td>
                                         <td>@drug.IncidentTypeId</td>
                                         <td>@drug.PriorityColor</td>
-                                        @*<td>@.</td>*@
-
                                     </tr>
                                 }
                             }
@@ -118,7 +113,6 @@
         <object class='tableauViz' style='display:none;'>
             <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
             <param name='embed_code_version' value='3' />
-            @*<param name='site_root' value='' />*@
             <param name='name' value='CrimeData_15752679414360&#47;Sheet1' />
             <param name='tabs' value='no' />
             <param name='toolbar' value='yes' />
@@ -131,6 +125,7 @@
         </object>
     </div>
 
+    @*Adding Custom Public Tableau Data to display the live occurence of drug incidents on Google Maps*@
     <script type='text/javascript'>
         var divElement = document.getElementById('viz1575267976836');
         var vizElement = divElement.getElementsByTagName('object')[0];
